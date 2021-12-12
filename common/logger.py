@@ -6,7 +6,7 @@ from loguru import logger
 class Logings:
     __instance = None
     # 文件名称，按天创建
-    DATE = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+    DATE = datetime.datetime.now().strftime('%Y-%m-%d')
 
     # 项目路径下创建log目录保存日志文件
     logpath = os.path.join(os.path.dirname(os.getcwd()), "logs")  # 拼接指定路径
@@ -15,7 +15,7 @@ class Logings:
         os.mkdir(logpath)
 
     logger.add('%s/%s.log' % (logpath, DATE),  # 指定文件
-               format="{time:YYYY-MM-DD HH:mm:ss}  | {level}> {elapsed}  | {message}",
+               format="{time:YYYY-MM-DD HH:mm:ss}  | {level} > {elapsed} | {message}",
                encoding='utf-8',
                retention='1 days',  # 设置历史保留时长
                backtrace=True,  # 回溯
@@ -53,3 +53,4 @@ if __name__ == '__main__':
     logs.debug("测试")
     logs.warning("测试")
     logs.error("测试")
+    logs.info("-------分割线-------")

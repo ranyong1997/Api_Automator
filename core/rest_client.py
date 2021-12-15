@@ -1,11 +1,21 @@
+import os
 import requests
 import json as complexjson
 from common.logger import logger
+from common.read_data import data
 
+BASE_PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+data_file_path = os.path.join(BASE_PATH, "config", "setting.ini")
+api_root_url = data.load_ini(data_file_path)["host"]["api_root_url"]
+
+
+###################################################
+# 对requests进行了简单的封装
+###################################################
 
 class RestClient():
 
-    def __init__(self, api_root_url):
+    def __init__(self, **kwargs):
         self.api_root_url = api_root_url
         self.session = requests.session()
 
@@ -30,11 +40,13 @@ class RestClient():
         params = dict(**kwargs).get("params")
         files = dict(**kwargs).get("params")
         cookies = dict(**kwargs).get("params")
+        # self.request_log(url, method, data)
+
         self.request_log(url, method, data, json, params, headers, files, cookies)
         if method == "GET":
             return self.session.get(url, **kwargs)
         if method == "POST":
-            return request.post(url, data, json, **kwargs)
+            return requests.post(url, data, json, **kwargs)
         if method == "PUT":
             if json:
                 # PUT 和 PATCH 中没有提供使用json参数的方法，因此需要用data来传入
@@ -47,7 +59,8 @@ class RestClient():
                 data = complexjson.dump(json)
             return self.session.patch(url, data, **kwargs)
 
-    def request_log(self, url, method, data=None, json=None, headers=None, files=None, cookies=None, **kwargs):
+    def request_log(self, url, method, data=None, json=None, params=None, headers=None, files=None, cookies=None,
+                    **kwargs):
         logger.info("接口请求地址 ===> {}".format(url))
         logger.info("接口请求方式 ===> {}".format(method))
         logger.info("接口请求头 ==>> {}".format(complexjson.dumps(headers, indent=4, ensure_ascii=False)))
@@ -56,3 +69,9 @@ class RestClient():
         logger.info("接口请求体 json 参数 ==>> {}".format(complexjson.dumps(json, indent=4, ensure_ascii=False)))
         logger.info("接口上传附件 files 参数 ==>> {}".format(files))
         logger.info("接口 cookies 参数 ==>> {}".format(complexjson.dumps(cookies, indent=4, ensure_ascii=False)))
+
+
+if __name__ == '__main__':
+    RestClient = RestClient()
+    RestClient.request(url="login", method="POST",
+                       data={"username": "admin", "password": "123456"})

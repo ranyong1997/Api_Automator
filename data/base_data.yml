@@ -1,0 +1,10 @@
+init_admin_user:
+    username: "test"
+    password: "123456"
+
+init_sql:
+    insert_delete_user:
+        - 'INSERT INTO sp_manager(mg_id,mg_name,mg_pwd,mg_time,mg_mobile,mg_email) VALUES ("1","test","123456","1486720212","123456","test@test.com")'
+        - 'DELETE FROM sp_manager WHERE mg_name = "test"';
+    delete_register_user: 'DELETE FROM sp_manager WHERE mg_name = "test"';
+    update_user_telephone: 'UPDATE sp_manager SET mg_mobile = "13888888888"; '

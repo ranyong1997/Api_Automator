@@ -48,9 +48,10 @@ class Logings:
 
 
 if __name__ == '__main__':
-    logs = Logings()
-    logs.info("测试")
-    logs.debug("测试")
-    logs.warning("测试")
-    logs.error("测试")
-    logs.info("-------分割线-------")
+    # logs = Logings()
+    # logs.info("测试")
+    # logs.debug("测试")
+    # logs.warning("测试")
+    # logs.error("测试")
+    # logs.info("-------分割线-------")
+    pass

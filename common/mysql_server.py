@@ -16,6 +16,8 @@ DB_CONF = {
 }
 
 
+# 数据库配置文件 /config/setting.ini
+
 class MysqlDB():
     def __init__(self, db_conf=DB_CONF):
         # 通过字典解包传递配置信息，建立数据库链接
@@ -55,6 +57,8 @@ class MysqlDB():
             self.conn.rollback()
 
 
+db = MysqlDB(DB_CONF)
 if __name__ == '__main__':
-    db = MysqlDB(DB_CONF)
-    # db.select_db('SELECT * FROM sp_report_1 WHERE id')
+    pass
+    # db = MysqlDB(DB_CONF)
+    # db.select_db('SELECT * FROM sp_express')

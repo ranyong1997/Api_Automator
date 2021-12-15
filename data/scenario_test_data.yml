@@ -1,0 +1,11 @@
+test_user_register_login_list:
+  mg_id: "1"
+  mg_name: "admin"
+  mg_pwd: "123456"
+  mg_time: "1486720212"
+  role_id: "0"
+  mg_mobile: "13599999999"
+  mg_emial: "test@test.com"
+  except_result: True
+  except_code: 0
+  except_msg: "查询成功"

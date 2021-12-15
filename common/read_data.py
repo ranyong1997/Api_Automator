@@ -38,7 +38,7 @@ class ReadFileData():
         config = MyConfigParser()
         config.read(file_path, encoding="UTF-8")
         data = dict(config._sections)
-        logger.info(data)
+        # logger.info(data)
         return data
 
 
